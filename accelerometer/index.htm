@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Acceleration Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // The watch id references the current `watchAcceleration`
+    var watchID = null;
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        console.log('onDeviceReady() fired');
+		startWatch();
+    }
+
+    // Start watching the acceleration
+    //
+    function startWatch() {
+        console.log('startWatch() fired');
+        // Update acceleration every 3 seconds
+        var options = { frequency: 300 };
+
+        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+		console.log('watchID = '+watchID);
+    }
+
+    // Stop watching the acceleration
+    //
+    function stopWatch() {
+        if (watchID) {
+            navigator.accelerometer.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+
+    // onSuccess: Get a snapshot of the current acceleration
+    //
+    function onSuccess(acceleration) {
+        var element = document.getElementById("box");
+        element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
+                            'Acceleration Y: ' + acceleration.y         + '<br />' +
+                            'Acceleration Z: ' + acceleration.z         + '<br />' +
+                            'Timestamp: '      + acceleration.timestamp + '<br />';
+    }
+
+    // onError: Failed to get the acceleration
+    //
+    function onError() {
+        alert('onError!');
+    }
+
+    </script>
+  </head>
+  <body>
+    <div id="box">Waiting for accelerometer...</div>
+  </body>
+</html>
