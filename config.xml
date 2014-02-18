@@ -16,6 +16,7 @@
     <author href="https://build.phonegap.com" email="support@phonegap.com">
         Owen Newton
     </author>
+	<preference name="phonegap-version" value="2.7.0" />
     <!-- Default -->
 	<icon src="icon.png" />
 <!-- IOS -->
